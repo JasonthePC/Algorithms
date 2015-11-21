@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.params=inputchars\ inArr\ inputstartpoint\ inputendpoint
+comment0.target=Permutator(int,\ java.lang.String[],\ int,\ int)
+comment0.text=\r\n\ Task\ object\ for\ permutator\r\n
+comment1.params=inputchars\ inArr
+comment1.target=Permutator(int,\ java.lang.String[])
+comment1.text=\r\n\ Constructs\ a\ task\ object\ for\ permutator\ assuming\ that\ all\ the\ premutations\ in\ a\ given\ String\ array\ for\ a\ given\ number\ of\ character\ is\ desired\r\n
+comment2.params=
+comment2.target=void\ divide()
+comment3.params=
+comment3.target=int\ estimateFileSize()
+comment3.text=\r\n\ Computes\ the\ size\ of\ a\ file\ in\ bytes\ that\ would\ be\ generated\ if\ the\ task\ object\ was\ generated\ to\ a\ file\r\n\ @return\ filesize\ in\ bytes\r\n
+comment4.params=pos
+comment4.target=java.lang.String\ generate(int)
+comment4.text=\r\n\ Ignore\ object\ startpoint\ and\ endpoint\ data\ and\ rely\ on\ user\ for\ pos.\r\n\ NOTE\:\ Still\ needs\ symbol\ array\ and\ char\ number\ from\ object\ data\!\r\n\ @param\ pos\ the\ input\ to\ the\ algorithm\r\n\ @return\ the\ output\ of\ the\ algorithm\ at\ given\ pos\r\n
+comment5.params=file
+comment5.target=void\ generateToFile(java.lang.String)
+comment5.text=\r\n\ Perform\ the\ task\ object\ and\ write\ the\ output\ to\ a\ file,\ inserting\ newlines\ between\ each\ output.\r\n\ @param\ file\ the\ file\ for\ the\ data\ to\ be\ written\ to,\ given\ as\ a\ string.\ If\ no\ path\ is\ given,\ current\ directory\ is\ used\r\n
+comment6.params=pos
+comment6.target=java.lang.String\ algorithm(int)
+comment6.text=\r\n\ An\ algorithm\ that\ generates\ a\r\n
+numComments=7
