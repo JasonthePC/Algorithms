@@ -1,12 +1,10 @@
-------------------------------------------------------------------------
-This is the project README file. Here, you should describe your project.
-Tell the reader (someone who does not know anything about this project)
-all he/she needs to know. The comments should usually include at least:
-------------------------------------------------------------------------
+PROJECT TITLE: Algorithms
+PURPOSE OF PROJECT: Provide some simple methods for generating permutations.
+AUTHORS: Jason Paximadas
+USER INSTRUCTIONS: Write a class that uses the Permutator class. You can see how to use it in the sample tester or in the JavaDoc comments.
 
-PROJECT TITLE:
-PURPOSE OF PROJECT:
-VERSION or DATE:
-HOW TO START THIS PROJECT:
-AUTHORS:
-USER INSTRUCTIONS:
+Permutator Class:
+Creates all possible permutations of the elements in a String array of a given length.
+
+PermutatorTester Class:
+Sample code that shows how the Permutator class functions.
