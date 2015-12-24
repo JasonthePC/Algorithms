@@ -49,20 +49,11 @@ public class Permutator
     }
     
     /**
-     * Ignore object startpoint and endpoint data and rely on user for pos.
-     * NOTE: Still needs symbol array and char number from object data!
-     * @param pos the input to the algorithm
-     * @return the output of the algorithm at given pos
-     */
-    public String generate(int pos){
-        return algorithm(pos);
-    }
-    
-    /**
      * Perform the task object and write the output to a file, inserting newlines between each output.
      * @param file the file for the data to be written to, given as a string. If no path is given, current directory is used
      */
     public void generateToFile(String file){
+        //start the PrintWriter
         PrintWriter out = null;
         try{
             out = new PrintWriter(file);
@@ -70,6 +61,7 @@ public class Permutator
             System.out.println(e.getMessage());
         }
         
+        //generate the output and write to the file
         for(int i=this.startpoint; i<=endpoint; i++){
             out.println(this.algorithm(i));
         }
@@ -77,16 +69,16 @@ public class Permutator
     }
     
     /**
-     * An algorithm that generates a
+     * An algorithm that generates a string based upon the numbers it is given
      */
-    private String algorithm(int pos){
+    public String algorithm(int seedInt){
         //convert seedInt to base symbols number
-        String seedString = Integer.toString(pos,this.symbols);
+        String seedString = Integer.toString(seedInt,this.symbols);
         //create an array for each character of seedString to be stored in as int
         ArrayList<Integer> intarr = new ArrayList<Integer>();
-            
+                   
             for(int i=0;i<seedString.length();i++){
-                //specfy a letter of seedString
+                //specify a letter of seedString
                 String cur=seedString.substring(i,i+1);
                 //convert cur to a base 10 integer
                 int curint =Integer.valueOf(cur,this.symbols);
@@ -98,7 +90,7 @@ public class Permutator
             while(intarr.size()<this.chars){
                 intarr.add(0,0);
             }
-            
+             
             //convert the numbers in intarr to symbols
             String output = "";
             for(int i=0;i<=intarr.size()-1;i++){
