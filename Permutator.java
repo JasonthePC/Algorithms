@@ -13,13 +13,16 @@ import java.io.PrintWriter;
  * 
  * @author Jason Paximadas
  */
-public class Permutator
+public class Permutator extends Thread
 {
     private int chars; //numbres of symbols from the array to be chosen
     private String[] symbolsarr; //the array of symbols
     private int startpoint; //first number to be processed
     private int endpoint; //last number to be processed
     private int symbols; //length of the symbols array
+    private Thread t;
+    private String taskName;
+    private PrintWriter out;
 
     /**
      * Creates a task object and makes no assumptions about the start and endpoint.
@@ -29,13 +32,13 @@ public class Permutator
      * @param inputendpoint The end of the iteration
      * PRECONDITION: Startpoint and endpoint must encompass a range of whole numbers
      */
-    public Permutator(int inputchars, String[] inArr, int inputstartpoint, int inputendpoint){
+    public Permutator(int inputchars, String[] inArr, int inputstartpoint, int inputendpoint, String inputTaskName){
         this.chars = inputchars;
         this.symbolsarr = inArr;
         this.startpoint = inputstartpoint;
         this.endpoint = inputendpoint;
         this.symbols = this.symbolsarr.length;
-        
+        this.taskName = inputTaskName;
     }
     
     /**
@@ -44,12 +47,13 @@ public class Permutator
      * @param inArr The array of symbols
      * PRECONDITION: Startpoint and endpoint must encompass a range of whole numbers
      */
-    public Permutator(int inputchars, String[] inArr){
+    public Permutator(int inputchars, String[] inArr, String inputTaskName){
         this.chars = inputchars;
         this.symbolsarr=  inArr;
         this.startpoint = 0; //assumes startpoint if every permutation was to be generated
         this.symbols = this.symbolsarr.length; //stores length of the array
         this.endpoint = (int) Math.pow(this.symbols,this.chars)-1; //assumes the endpoint if every permutation was to be generated
+        this.taskName = inputTaskName;
     }
     
     /**
@@ -66,10 +70,14 @@ public class Permutator
         for(int i = portions; i > 0;i--){
             curdiv = computations/i; //slices off the next set of computations to be reallocated
             computations -= curdiv;//substracts computations to be reallocated from unallocated computations
-            returnArr[portions-i] = new Permutator(this.chars,this.symbolsarr,compsdivided,compsdivided+curdiv-1);//reallocates computations by computing new startpoint and endpoint
+            returnArr[portions-i] = new Permutator(this.chars,this.symbolsarr,compsdivided,compsdivided+curdiv-1,this.taskName+"-"+(portions-i));//reallocates computations by computing new startpoint and endpoint and transferring object data
             compsdivided += curdiv;//records the number of reallocated computations
         }
         return returnArr; //returns the array
+    }
+    
+    public void setPrintWriter(PrintWriter toBeSet){
+        this.out = toBeSet;
     }
     
     /**
@@ -83,18 +91,34 @@ public class Permutator
     /**
      * Perform the task object and display the output on the console.
      */
-    public void generateToConsole(){
+    public void printToConsole(){
         for(int i = this.startpoint; i <= this.endpoint; i++) //iterates over all the integers specified by the task object
             System.out.println(this.algorithm(i)); //prints the output of the algorithm to the console
+    }
+    
+    public void printToFile(){
+        for(int i = this.startpoint; i <= this.endpoint; i++){ //iterates over all the integers specified by the task object
+            this.out.println(this.algorithm(i)); //uses the PrintWriter to write the output of the algorithm to the specified file
+        }
     }
     
     /**
      * Perform the task object and write the output to a file, inserting newlines between each output.
      * @param The PrintWriter object that will write to the file
      */
-    public void generateToFile(PrintWriter out){      
-        for(int i = this.startpoint; i <= endpoint; i++) //iterates over all the integers specified by the task object
-            out.println(this.algorithm(i)); //uses the PrintWriter to write the output of the algorithm to the specified file
+    public void run(){      
+        for(int i = this.startpoint; i <= this.endpoint; i++){ //iterates over all the integers specified by the task object
+            this.out.println(this.algorithm(i)); //uses the PrintWriter to write the output of the algorithm to the specified file
+        }
+        System.out.println(taskName + " is done.");
+    }
+    
+    public void start(){
+        if(t==null){
+            System.out.println("Starting " + this.taskName);
+            t = new Thread(this, this.taskName);
+            t.start();
+        }
     }
     
     /**
