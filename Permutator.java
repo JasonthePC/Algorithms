@@ -1,6 +1,5 @@
-import java.lang.Math;
 import java.util.ArrayList;
-import java.io.*;
+import java.io.PrintWriter;
 /**
  * @author Jason Paximadas
  */
@@ -36,8 +35,21 @@ public class Permutator
         this.endpoint = (int) Math.pow(this.symbols,this.chars)-1;
     }
     
-    public void divide(){
-        
+    /**
+     * Divides the task object into many smaller task objects
+     */
+    public Permutator[] divide(int portions){
+        int computations = this.endpoint+1; //finds total computations
+        int compsdivided = 0;  //records how many computations have been reallocated
+        Permutator[] returnArr = new Permutator[portions]; //creates the task array
+        int curdiv;
+        for(int i = portions;i>0;i--){
+            curdiv = computations/i; //slices off the next set of computations to be reallocated
+            computations-=curdiv;//substracts computations to be reallocated from unallocated computations
+            returnArr[portions-i] = new Permutator(this.chars,this.symbolsarr,compsdivided,compsdivided+curdiv-1);//reallocates computations by computing new startpoint and endpoint
+            compsdivided+=curdiv;//records the number of reallocated computations
+        }
+        return returnArr;
     }
     
     /**
@@ -49,23 +61,21 @@ public class Permutator
     }
     
     /**
-     * Perform the task object and write the output to a file, inserting newlines between each output.
-     * @param file the file for the data to be written to, given as a string. If no path is given, current directory is used
+     * Perform the task object and display the output on the console
      */
-    public void generateToFile(String file){
-        //start the PrintWriter
-        PrintWriter out = null;
-        try{
-            out = new PrintWriter(file);
-        }catch(FileNotFoundException e){
-            System.out.println(e.getMessage());
-        }
-        
-        //generate the output and write to the file
+    public void generateToConsole(){
+        for(int i=this.startpoint; i<=this.endpoint; i++)
+            System.out.println(this.algorithm(i));
+    }
+    
+    /**
+     * Perform the task object and write the output to a file, inserting newlines between each output.
+     * @param the PrintWriter object
+     */
+    public void generateToFile(PrintWriter out){      
         for(int i=this.startpoint; i<=endpoint; i++){
             out.println(this.algorithm(i));
         }
-        out.close();
     }
     
     /**
