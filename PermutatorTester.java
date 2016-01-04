@@ -35,17 +35,15 @@ public class PermutatorTester
             System.out.println(e.getMessage());
         }
         
-        PrintWriter[] writerArr = {out1,out2,out3,out4};
-        Permutator bigTask = new Permutator(4,inArr,"4letters");
-        Permutator[] taskArr = bigTask.divide(4);
+        PrintWriter[] writerArr = {out1,out2,out3,out4}; //push all the PrintWriters to an array
+        Permutator bigTask = new Permutator(4,inArr,"4letters"); //create the task
+        Permutator[] taskArr = bigTask.divide(4); //divy up the work across 4 task objects
         
+        //give it a PrintWriter and start the task
         for(int i=0;i<4;i++){
             taskArr[i].setPrintWriter(writerArr[i]);
-            //taskArr[i].start();
+            taskArr[i].start();
             
         }
-       
-        for(int i=0;i<4;i++)
-            writerArr[i].close();
     }
 }

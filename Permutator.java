@@ -7,7 +7,7 @@ import java.io.PrintWriter;
  * <p>
  * Generating the output Strings is achieved with the algorithm() method.
  * Permutator objects contain the bounds of the range of integers the algorithm() method operates on.
- * Since Permutator objects outline the "task to be completed" they are referred to in teh documentation as "task objects".
+ * Since Permutator objects outline the "task to be completed" they are referred to in the documentation as "task objects".
  * Although the algorithm() method is public, the generateToFile() and generateToConsole() methods allow for the execution of a task object and the storing of the output.
  * The divide() method is provided to split up task objects into many smaller task objects for parrallel processing.
  * 
@@ -20,9 +20,9 @@ public class Permutator extends Thread
     private int startpoint; //first number to be processed
     private int endpoint; //last number to be processed
     private int symbols; //length of the symbols array
-    private Thread t;
-    private String taskName;
-    private PrintWriter out;
+    private Thread t; //creatrs thread object to be initialized when the task object is run 
+    private String taskName; //name of the task
+    private PrintWriter out; //the PrintWriter the task object will use
 
     /**
      * Creates a task object and makes no assumptions about the start and endpoint.
@@ -111,13 +111,16 @@ public class Permutator extends Thread
             this.out.println(this.algorithm(i)); //uses the PrintWriter to write the output of the algorithm to the specified file
         }
         System.out.println(taskName + " is done.");
+        this.out.close();
     }
     
     public void start(){
         if(t==null){
-            System.out.println("Starting " + this.taskName);
             t = new Thread(this, this.taskName);
+            System.out.println(this.t.getState());
+            System.out.println("Starting " + this.taskName);
             t.start();
+            System.out.println(this.t.getState());
         }
     }
     
