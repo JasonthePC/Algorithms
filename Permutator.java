@@ -13,14 +13,13 @@ import java.io.PrintWriter;
  * 
  * @author Jason Paximadas
  */
-public class Permutator extends Thread
+public class Permutator implements Runnable
 {
     private int chars; //numbres of symbols from the array to be chosen
     private String[] symbolsarr; //the array of symbols
     private int startpoint; //first number to be processed
     private int endpoint; //last number to be processed
-    private int symbols; //length of the symbols array
-    private Thread t; //creatrs thread object to be initialized when the task object is run 
+    private int symbols; //length of the symbols array 
     private String taskName; //name of the task
     private PrintWriter out; //the PrintWriter the task object will use
 
@@ -111,17 +110,15 @@ public class Permutator extends Thread
             this.out.println(this.algorithm(i)); //uses the PrintWriter to write the output of the algorithm to the specified file
         }
         System.out.println(taskName + " is done.");
-        this.out.close();
+        out.close();
     }
     
-    public void start(){
-        if(t==null){
-            t = new Thread(this, this.taskName);
-            System.out.println(this.t.getState());
+    public void generate(){
+            Thread t = new Thread(this, this.taskName);
+            //System.out.println(this.t.getState());
             System.out.println("Starting " + this.taskName);
             t.start();
-            System.out.println(this.t.getState());
-        }
+            //System.out.println(this.t.getState());
     }
     
     /**

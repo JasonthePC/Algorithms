@@ -42,7 +42,7 @@ public class PermutatorTester
         //give it a PrintWriter and start the task
         for(int i=0;i<4;i++){
             taskArr[i].setPrintWriter(writerArr[i]);
-            taskArr[i].start();
+            taskArr[i].generate();
             
         }
     }
